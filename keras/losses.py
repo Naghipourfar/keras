@@ -60,8 +60,10 @@ def logcosh(y_true, y_pred):
     # Returns
         Tensor with one scalar loss entry per sample.
     """
+
     def _logcosh(x):
         return x + K.softplus(-2. * x) - K.log(2.)
+
     return K.mean(_logcosh(y_pred - y_true), axis=-1)
 
 
@@ -85,6 +87,21 @@ def kullback_leibler_divergence(y_true, y_pred):
 
 def poisson(y_true, y_pred):
     return K.mean(y_pred - y_true * K.log(y_pred + K.epsilon()), axis=-1)
+
+
+def huber(y_true, y_pred, delta):
+    residual = K.abs(y_true - y_pred)
+
+    def f1():
+        return 0.5 * K.square(residual)
+
+    def f2():
+        return delta * residual - 0.5 * K.square(delta)
+
+    if residual <= delta:
+        return f1()
+    else:
+        return f2()
 
 
 def cosine_proximity(y_true, y_pred):
