@@ -14,6 +14,12 @@ def mean_squared_error(y_true, y_pred):
     return K.mean(K.square(y_pred - y_true), axis=-1)
 
 
+def weighted_mean_squared_error(y_true, y_pred, weights=None):
+    if weights is None:
+        return mean_squared_error(y_true, y_pred)
+    return K.mean(weights * K.square(y_true - y_pred), axis=-1)
+
+
 def mean_absolute_error(y_true, y_pred):
     return K.mean(K.abs(y_pred - y_true), axis=-1)
 
