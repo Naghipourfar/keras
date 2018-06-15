@@ -88,6 +88,8 @@ class BatchNormalization(Layer):
         self.beta_constraint = constraints.get(beta_constraint)
         self.gamma_constraint = constraints.get(gamma_constraint)
 
+
+
     def build(self, input_shape):
         dim = input_shape[self.axis]
         if dim is None:
@@ -125,6 +127,7 @@ class BatchNormalization(Layer):
             name='moving_variance',
             initializer=self.moving_variance_initializer,
             trainable=False)
+
         self.built = True
 
     def call(self, inputs, training=None):
