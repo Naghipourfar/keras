@@ -95,6 +95,7 @@ class Dropout(Layer):
     # References
         - [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
     """
+
     @interfaces.legacy_dropout_support
     def __init__(self, rate, noise_shape=None, seed=None, **kwargs):
         super(Dropout, self).__init__(**kwargs)
@@ -119,6 +120,7 @@ class Dropout(Layer):
             def dropped_inputs():
                 return K.dropout(inputs, self.rate, noise_shape,
                                  seed=self.seed)
+
             return K.in_train_phase(dropped_inputs, inputs,
                                     training=training)
         return inputs
@@ -488,9 +490,9 @@ class Flatten(Layer):
             raise ValueError('The shape of the input to "Flatten" '
                              'is not fully defined '
                              '(got ' + str(input_shape[1:]) + '. '
-                             'Make sure to pass a complete "input_shape" '
-                             'or "batch_input_shape" argument to the first '
-                             'layer in your model.')
+                                                              'Make sure to pass a complete "input_shape" '
+                                                              'or "batch_input_shape" argument to the first '
+                                                              'layer in your model.')
         return (input_shape[0], np.prod(input_shape[1:]))
 
     def call(self, inputs):
